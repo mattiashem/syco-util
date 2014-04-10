@@ -9,3 +9,7 @@ Evidence/*.conf
 Evidence/*.nmap
 *.txt
 
+
+#ssh-command
+ssh-command/sshsettings.py
+ssh-command/.idea
