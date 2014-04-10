@@ -2,6 +2,7 @@
 *.pyc
 .idea
 #Evidence
+Evidence/.idea
 Evidence/togit/
 *.nmap
 *.txt
