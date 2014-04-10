@@ -1,5 +1,6 @@
 #ignoring files
 *.pyc
+.idea
 #Evidence
 Evidence/togit/
 *.nmap
