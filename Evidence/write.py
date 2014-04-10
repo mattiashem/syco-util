@@ -1,0 +1,33 @@
+import time
+import socket
+import re
+import os
+import StringIO
+
+def write_to_file(filename, from_evidence, infolder, host):
+
+    network =['10.101.2.1','10.100.1.220','10.100.2.220']
+    application =['10.101.2.222']
+    if host in network:
+        folder ="/network/"+infolder
+
+    elif host in application:
+        folder ="/application/"+infolder
+    else:
+        folder = "/plattform/"+infolder
+    try:
+        if not os.path.exists('togit/' + folder):
+            os.makedirs('togit/' + folder)
+        f = open('togit/' + folder + '/' + filename + '_' + time.strftime('%d-%m-%Y') + '.txt', 'w')
+        try:
+            buf = StringIO.StringIO(from_evidence)
+            for line in buf:
+                line = re.sub('^userPassword.*', 'userPassword:*******', line)
+                line = re.sub('^#.*', '', line)
+                f.write(line)
+
+        finally:
+            f.close()
+
+    except IOError:
+        pass

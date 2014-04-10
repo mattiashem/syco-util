@@ -1,0 +1,7 @@
+#ignoring files
+*.pyc
+#Evidence
+Evidence/togit/
+*.nmap
+*.txt
+
