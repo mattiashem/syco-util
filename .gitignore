@@ -2,8 +2,10 @@
 *.pyc
 .idea
 #Evidence
+Evidence/EvidenceSettings.*
 Evidence/.idea
 Evidence/togit/
-*.nmap
+Evidence/*.conf
+Evidence/*.nmap
 *.txt
 

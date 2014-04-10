@@ -3,66 +3,9 @@ from fabric.api import local, settings, abort
 from fabric.contrib.console import confirm
 from fabric.api import *
 from write import *
+from EvidenceSettings import *
 import time
-env.roledefs = {
-    'test':['10.101.2.1'],
 
-
-    'sample': ['10.101.1.201',
-            '10.101.1.5',
-            '10.101.1.7',
-            '10.101.1.12',
-            '10.101.1.125',
-            '10.101.1.3',
-            '10.101.2.105',
-            '10.101.2.4',
-            '10.101.2.10',
-            '10.101.2.115',
-            '10.101.2.2',
-            '10.101.2.1','10.101.2.108'],
- 'switch': ['10.100.2.220'],
- 'av-base': ['10.101.2.1',
-             '10.101.2.2',
-             '10.101.2.3',
-             '10.101.2.4',
-             '10.101.2.5',
-             '10.101.2.6',
-             '10.101.2.7',
-             '10.101.2.8',
-             '10.101.2.10',
-             '10.101.2.12',
-             '10.101.2.13',
-             '10.101.2.24'],
- 'av-service': ['10.101.2.105',
-                '10.101.2.107',
-                '10.101.2.108',
-                '10.101.2.115',
-                '10.101.2.116',
-                '10.101.2.125',
-                '10.101.2.134',
-                '10.101.2.164',
-                '10.101.2.165',
-                '10.101.2.172'],
- 'tc-base': ['10.101.1.1',
-             '10.101.1.2',
-             '10.101.1.3',
-             '10.101.1.4',
-             '10.101.1.5',
-             '10.101.1.6',
-             '10.101.1.7',
-             '10.101.1.10',
-             '10.101.1.12',
-             '10.101.1.13'],
- 'tc-service': ['10.101.1.105',
-                '10.101.1.107',
-                '10.101.1.108',
-                '10.101.1.115',
-                '10.101.1.125',
-                '10.101.1.164',
-                '10.101.1.165',
-                '10.101.1.185',
-                '10.101.1.172']}
-env.user = 'mathem'
 
 def get_version():
     out = sudo('cat /etc/issue')
@@ -235,14 +178,14 @@ def patch_status():
 
 @roles('switch')
 def switch_conf():
-    local('scp ' + env.user + '@10.100.1.220:/cfg/startup-config tc-switch.conf')
-    local('scp ' + env.user + '@10.100.2.220:/cfg/startup-config av-switch.conf')
+    local('scp ' + env.user + '@SWITCH-IP:/cfg/startup-config 1-switch.conf')
+    local('scp ' + env.user + '@SWITCH-IP:/cfg/startup-config 1-switch.conf')
     with open('tc-switch.conf', 'r') as content_file:
         out_tc = content_file.read()
-    write_to_file('6.1a_switc-tc_config', out_tc, '6.1', env.host_string)
+    write_to_file('6.1a_switc-1_config', out_tc, '6.1', env.host_string)
     with open('av-switch.conf', 'r') as content_file:
         out_av = content_file.read()
-    write_to_file('6.1a_switc-av_config', out_av, '6.1', env.host_string)
+    write_to_file('6.1a_switc-2_config', out_av, '6.1', env.host_string)
 
 
 def nmap_scan():
@@ -252,7 +195,7 @@ def nmap_scan():
     write_to_file('2.2.2a_' + env.host_string + '_nmap', out, '2.2.2a', env.host_string)
 
 
-@roles('sample')
+@roles('hosts')
 def all():
     get_version()
     access_list()
