@@ -3,11 +3,11 @@ import socket
 import re
 import os
 import StringIO
+from EvidenceSettings import *
 
 def write_to_file(filename, from_evidence, infolder, host):
 
-    network =['10.101.2.1','10.100.1.220','10.100.2.220']
-    application =['10.101.2.222']
+
     if host in network:
         folder ="/network/"+infolder
 

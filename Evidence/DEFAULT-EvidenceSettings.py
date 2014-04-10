@@ -25,5 +25,13 @@ env.roledefs = {
             '10.1.2.1',
             '10.101.2.108'],
 
+
+
+#defins what host are to go inte network ore plattform validations folder.
+#Added applcations also for later use
+
+network =['10..2.1','10.100.1.220','10.100.2.220']
+application =['10.101.2.222']
+
 #Setuser name if not used ssh login username
 env.user = 'username'
